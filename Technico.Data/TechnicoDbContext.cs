@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Technico.Core.Entities;
 using Technico.Data.Configurations;
 
 namespace Technico.Data

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Technico.Core.DTOs.Repair;
 
 namespace Technico.API.Validations.Repair
 {

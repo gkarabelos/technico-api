@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Technico.Core.DTOs.Property;
+using Technico.Core.Interfaces;
 
 namespace Technico.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Technico.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PropertyDto>> CreateProperty([FromBody] CreatePropertyDto dto) // Maybe change to Property(Request/Response)Dto
+        public async Task<ActionResult<PropertyDto>> CreateProperty([FromBody] CreatePropertyDto dto)
         {
             try
             {

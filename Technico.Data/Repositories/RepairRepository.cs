@@ -1,4 +1,6 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore;
+using Technico.Core.Entities;
+using Technico.Core.Interfaces;
 
 namespace Technico.Data.Repositories
 {

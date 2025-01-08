@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Technico.Core.DTOs.Repair;
+using Technico.Core.Interfaces;
 
 namespace Technico.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Technico.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RepairDto>> CreateRepair([FromBody] CreateRepairDto dto) // Maybe change to Repair(Request/Response)Dto
+        public async Task<ActionResult<RepairDto>> CreateRepair([FromBody] CreateRepairDto dto)
         {
             try
             {

@@ -1,8 +1,13 @@
-
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Technico.API.Validations.Owner;
 using Technico.API.Validations.Property;
 using Technico.API.Validations.Repair;
+using Technico.Core.Interfaces;
+using Technico.Data;
+using Technico.Data.Repositories;
+using Technico.Service.Services;
 
 namespace Technico.API
 {
@@ -12,8 +17,6 @@ namespace Technico.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             var configuration = builder.Configuration;
 
             builder.Services.AddDbContextPool<TechnicoDbContext>(options =>
@@ -22,6 +25,8 @@ namespace Technico.API
                     configuration.GetConnectionString("DbContext"),
                 provideroptions => provideroptions.EnableRetryOnFailure());
             });
+
+            // Add services to the container.
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,6 +52,7 @@ namespace Technico.API
             builder.Services.AddScoped<IRepairRepository, RepairRepository>();
             builder.Services.AddScoped<IRepairService, RepairService>();
 
+            // Add CORS configuration
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngularApp", policy =>
@@ -68,6 +74,7 @@ namespace Technico.API
 
             app.UseHttpsRedirection();
 
+            // Apply CORS middleware
             app.UseCors("AllowAngularApp");
 
             app.UseAuthorization();

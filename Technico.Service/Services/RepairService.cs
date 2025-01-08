@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using Technico.Core.DTOs.Repair;
+using Technico.Core.Entities;
+using Technico.Core.Interfaces;
 
 namespace Technico.Service.Services
 {

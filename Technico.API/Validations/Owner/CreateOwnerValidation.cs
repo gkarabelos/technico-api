@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Technico.Core.DTOs.Owner;
 
 namespace Technico.API.Validations.Owner
 {

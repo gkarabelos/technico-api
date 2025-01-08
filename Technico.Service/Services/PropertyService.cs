@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using AutoMapper;
+using Technico.Core.DTOs.Property;
+using Technico.Core.Entities;
+using Technico.Core.Interfaces;
 
 namespace Technico.Service.Services
 {

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Technico.Core.DTOs.Owner;
+using Technico.Core.Interfaces;
 
 namespace Technico.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Technico.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OwnerDto>> CreatePropertyOwner([FromBody] CreateOwnerDto dto) // Maybe change to Owner(Request/Response)Dto
+        public async Task<ActionResult<OwnerDto>> CreatePropertyOwner([FromBody] CreateOwnerDto dto)
         {
             try
             {
@@ -74,6 +75,16 @@ namespace Technico.API.Controllers
             if (!success)
                 return NotFound();
             return NoContent();
+        }
+
+        [HttpGet("validate-owner-vat/{vatNumber}")]
+        public async Task<IActionResult> ValidateOwnerVat(string vatNumber)
+        {
+            var owner = await _ownerService.FindByVatNumberAsync(vatNumber);
+            if (owner == null)
+                return NotFound(new { message = "Owner with the provided VAT number does not exist." });
+
+            return Ok(new { message = "Owner with the provided VAT number does exist.", id = owner.Id });
         }
     }
 }
