@@ -1,10 +1,15 @@
-﻿using Technico.Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RetailApp.Models;
 
-namespace Technico.Core.Interfaces
+namespace RetailApp.Interfaces;
+
+public interface IOwnerRepository : IRepository<Owner>
 {
-    public interface IOwnerRepository : IRepository<Owner>
-    {
-        Task<Owner?> ExistsByVatNumberAsync(string vatNumber);
-        Task<bool> IsVatNumberUniqueAsync(string vatNumber, long excludedId);
-    }
-}
+    Task<bool> ExistsByVatNumberAsync(string vatNumber);
+    Task<bool> IsVatNumberUniqueAsync(string vatNumber, long excludedId);
+
+}    
