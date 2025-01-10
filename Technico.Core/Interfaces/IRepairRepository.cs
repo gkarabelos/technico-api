@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RetailApp.Models;
+﻿using Technico.Core.Entities;
 
-namespace RetailApp.Interfaces;
-
-public interface IRepairRepository : IRepository<Repair>
+namespace Technico.Core.Interfaces
 {
-    Task<bool> ExistsAsync(long propertyId);
-    Task<int> GetTotalRepairCountAsync();
-    Task<IEnumerable<Repair>> GetPaginatedRepairsAsync(int skip, int take);
-
+    public interface IRepairRepository : IRepository<Repair>
+    {
+        Task<bool> ExistsAsync(long propertyId);
+    }
 }

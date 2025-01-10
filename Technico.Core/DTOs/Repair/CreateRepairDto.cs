@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RetailApp.Enums;
+﻿using Technico.Core.Enums;
 
-namespace RetailApp.Dtos.Repair;
-
-public class CreateRepairDto
+namespace Technico.Core.DTOs.Repair
 {
-    public DateTime ScheduledDate { get; set; }
-    public string Type { get; set; }
-    public RepairStatus Status { get; set; } = RepairStatus.Pending; 
-    public decimal Cost { get; set; }
-    public string? Description { get; set; } = string.Empty;
-    public long PropertyId { get; set; }
+    public class CreateRepairDto
+    {
+        public DateTime Date { get; set; }
+
+        public string Type { get; set; } = null!;
+
+        public string? Description { get; set; }
+
+        public RepairStatus Status { get; set; } = RepairStatus.Pending;
+
+        public decimal Cost { get; set; }
+
+        public long PropertyId { get; set; }
+    }
 }

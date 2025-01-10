@@ -1,9 +1,11 @@
 ﻿using Technico.Core.Enums;
 
-namespace Technico.Core.DTOs.Repair
+namespace Technico.Core.Entities
 {
-    public class UpdateRepairDto
+    public class Repair
     {
+        public long Id { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Type { get; set; } = null!;
@@ -15,5 +17,7 @@ namespace Technico.Core.DTOs.Repair
         public decimal Cost { get; set; }
 
         public long PropertyId { get; set; }
+
+        public virtual Property Property { get; set; } = null!;
     }
 }

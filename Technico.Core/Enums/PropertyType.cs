@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RetailApp.Enums;
-
-public enum PropertyType
+﻿namespace Technico.Core.Enums
 {
-
-    DetachedHouse, Maisonette, ApartmentBuilding
-
+    public enum PropertyType
+    {
+        DetachedHouse,
+        Maisonet,
+        ApartmentBuilding
+    }
 }
