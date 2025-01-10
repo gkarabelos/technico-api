@@ -1,8 +1,12 @@
-﻿namespace Technico.Core.Enums
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RetailApp.Enums;
+
+public enum UserType
 {
-    public enum UserType
-    {
-        Admin,
-        Owner
-    }
+    Admin, User
 }

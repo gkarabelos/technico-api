@@ -1,9 +1,13 @@
-﻿namespace Technico.Core.Enums
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RetailApp.Enums;
+
+public enum RepairStatus
 {
-    public enum RepairStatus
-    {
-        Pending,
-        InProgress,
-        Complete
-    }
+    Pending, InProgress, Complete
+
 }

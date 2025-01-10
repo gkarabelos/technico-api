@@ -1,19 +1,27 @@
-﻿using Technico.Core.DTOs.Owner;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RetailApp.Dtos.Owner;
+using RetailApp.Dtos.Repair;
 
-namespace Technico.Core.DTOs.Property
+namespace RetailApp.Dtos.Property;
+
+public   class PropertyDto
 {
-    public class PropertyDto
-    {
-        public long Id { get; set; }
+    public long Id { get; set; }
 
-        public string PropertyId { get; set; } = null!;
+    public string E9 { get; set; } = string.Empty;
 
-        public string Address { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
-        public int YearOfConstruction { get; set; }
+    public int Year { get; set; }
 
-        public string Type { get; set; } = null!;
+    public string Type { get; set; }  
+    public OwnerDto Owner { get; set; }
 
-        public OwnerDto Owner { get; set; } = null!;
-    }
+    public List<RepairDto> Repairs { get; set; }// ????
+
+
 }
