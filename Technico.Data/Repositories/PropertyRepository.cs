@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Technico.Core.DTOs.Owner;
+using Technico.Core.DTOs.Property;
 using Technico.Core.Entities;
+using Technico.Core.Enums;
 using Technico.Core.Interfaces;
 
 namespace Technico.Data.Repositories
@@ -59,6 +62,41 @@ namespace Technico.Data.Repositories
         {
             return await _dbContext.Owners
                 .AnyAsync(o => o.Id == ownerId);
+        }
+
+        public async Task<IEnumerable<Property>> GetPaginatedPropertiesAsync(string? searchTerm, int skip, int take)
+        {
+            var propertyTypeValues = new Dictionary<string, int>
+            {
+                { "Detached House", 0 },
+                { "Maisonet", 1 },
+                { "Apartment Building", 2 }
+            };
+
+            var query = _dbContext.Properties.Include(p => p.Owner).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var matchedType = propertyTypeValues
+                    .FirstOrDefault(kv => kv.Key.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+                query = query.Where(p =>
+                    (matchedType.Key != null && p.Type == (PropertyType)matchedType.Value) ||
+                    p.Id.ToString().Contains(searchTerm) ||
+                    p.PropertyId.Contains(searchTerm) ||
+                    p.Address.Contains(searchTerm) ||
+                    p.YearOfConstruction.ToString().Contains(searchTerm) ||
+                    p.Owner.VatNumber.Contains(searchTerm)
+                );
+            }
+
+            var data = await query.Skip(skip).Take(take).ToListAsync();
+            return data;
+        }
+
+        public async Task<int> GetTotalPropertyCountAsync()
+        {
+            return await _dbContext.Properties.CountAsync();
         }
     }
 }

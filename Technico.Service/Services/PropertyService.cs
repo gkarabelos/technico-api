@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using Technico.Core.DTOs.Pagination;
 using Technico.Core.DTOs.Property;
 using Technico.Core.Entities;
 using Technico.Core.Interfaces;
@@ -65,6 +66,21 @@ namespace Technico.Service.Services
 
             await _propertyRepository.DeleteAsync(entity);
             return true;
+        }
+
+        public async Task<PaginatedResult<PropertyDto>> GetPaginatedPropertiesAsync(string? searchTerm, int page, int pageSize)
+        {
+            int skip = (page - 1) * pageSize;
+
+            var properties = await _propertyRepository.GetPaginatedPropertiesAsync(searchTerm, skip, pageSize);
+
+            var totalRecords = await _propertyRepository.GetTotalPropertyCountAsync();
+
+            return new PaginatedResult<PropertyDto>
+            {
+                Data = _mapper.Map<IEnumerable<PropertyDto>>(properties),
+                TotalRecords = totalRecords
+            };
         }
     }
 }

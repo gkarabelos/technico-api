@@ -76,5 +76,12 @@ namespace Technico.API.Controllers
                 return NotFound();
             return NoContent();
         }
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetPaginatedProperties([FromQuery] string? searchTerm = null, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _propertyService.GetPaginatedPropertiesAsync(searchTerm, page, pageSize);
+            return Ok(result);
+        }
     }
 }
