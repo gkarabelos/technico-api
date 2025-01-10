@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Core.Entities;
+using Technico.Core.Enums;
 using Technico.Core.Interfaces;
 
 namespace Technico.Data.Repositories
@@ -49,5 +50,18 @@ namespace Technico.Data.Repositories
             return await _dbContext.Properties
                 .AnyAsync(p => p.Id == propertyId);
         }
+
+        public async Task<IEnumerable<Repair>> GetRepairsForTodayAsync()
+        {
+            var today = DateTime.UtcNow.Date;
+            var repairsForToday = await _dbContext.Repairs
+                .Include(r => r.Property)   // Ensure the Property is loaded
+                .ThenInclude(p => p.Owner)  // Ensure the Owner is loaded as well
+                .Where(r => r.Date.Date == today && r.Status == RepairStatus.Pending)
+                .ToListAsync();
+
+            return repairsForToday;
+        }
+
     }
 }

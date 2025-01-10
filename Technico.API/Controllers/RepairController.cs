@@ -76,5 +76,19 @@ namespace Technico.API.Controllers
                 return NotFound();
             return NoContent();
         }
+
+        [HttpGet("today")]
+        public async Task<IActionResult> GetRepairsForToday()
+        {
+            try
+            {
+                var repairs = await _repairService.GetRepairsForTodayAsync();
+                return Ok(repairs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace Technico.Core.Interfaces
         Task<RepairDto> CreateRepairAsync(CreateRepairDto dto);
         Task<bool> UpdateRepairAsync(long id, UpdateRepairDto dto);
         Task<bool> DeleteRepairAsync(long id);
+
+        Task<IEnumerable<RepairDto>> GetRepairsForTodayAsync();
     }
 }

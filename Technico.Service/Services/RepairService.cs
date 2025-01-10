@@ -60,5 +60,11 @@ namespace Technico.Service.Services
             await _repairRepository.DeleteAsync(entity);
             return true;
         }
+
+        public async Task<IEnumerable<RepairDto>> GetRepairsForTodayAsync()
+        {
+            var repairs = await _repairRepository.GetRepairsForTodayAsync();
+            return _mapper.Map<IEnumerable<RepairDto>>(repairs);
+        }
     }
 }

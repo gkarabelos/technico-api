@@ -1,5 +1,7 @@
 ﻿
 
+using Technico.Core.DTOs.Property;
+
 namespace Technico.Core.DTOs.Repair
 {
     public class RepairDto
@@ -17,5 +19,9 @@ namespace Technico.Core.DTOs.Repair
         public decimal Cost { get; set; }
 
         public long PropertyId { get; set; }
+
+        public PropertyDto Property { get; set; } = new PropertyDto();
+
+        public string? OwnerName { get; set; }
     }
 }
