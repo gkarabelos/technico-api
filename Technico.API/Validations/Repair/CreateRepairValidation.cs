@@ -17,6 +17,9 @@ namespace Technico.API.Validations.Repair
             RuleFor(r => r.Description)
                 .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.");
 
+            RuleFor(p => p.Status)
+                .IsInEnum().WithMessage("Status of repair must be 0 (Pending), 1 (In Progress) or 2 (Completed).");
+
             RuleFor(r => r.Cost)
                 .GreaterThanOrEqualTo(0).WithMessage("Repair cost must be a positive value.")
                 .PrecisionScale(10, 2, true).WithMessage("Repair cost must have up to 10 digits with 2 decimal places.");

@@ -9,15 +9,13 @@ namespace Technico.Core.Profiles
     {
         public PropertyProfile()
         {
-            CreateMap<Property, PropertyDto>();
+            CreateMap<Property, PropertyDto>()
+                .ForMember(dest => dest.VatNumber, opt => opt.MapFrom(src => src.Owner.VatNumber));
 
             CreateMap<CreatePropertyDto, Property>();
 
             CreateMap<UpdatePropertyDto, Property>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-            CreateMap<Property, PropertyDto>()
-            .ForMember(dest => dest.VatNumber, opt => opt.MapFrom(src => src.Owner.VatNumber));
         }
     }
 }

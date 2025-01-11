@@ -9,17 +9,15 @@ namespace Technico.Core.Profiles
     {
         public RepairProfile()
         {
-            CreateMap<Repair, RepairDto>();
+            CreateMap<Repair, RepairDto>()
+                .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src => src.Property.Owner.Name))
+                .ForMember(dest => dest.OwnerSurname, opt => opt.MapFrom(src => src.Property.Owner.Surname))
+                .ForMember(dest => dest.PropertyAddress, opt => opt.MapFrom(src => src.Property.Address));
 
             CreateMap<CreateRepairDto, Repair>();
 
             CreateMap<UpdateRepairDto, Repair>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-            CreateMap<Repair, RepairDto>()
-           .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src => src.Property.Owner.Name))
-           .ForMember(dest => dest.OwnerSurname, opt => opt.MapFrom(src => src.Property.Owner.Surname))
-           .ForMember(dest => dest.PropertyAddress, opt => opt.MapFrom(src => src.Property.Address));
         }
     }
 }
