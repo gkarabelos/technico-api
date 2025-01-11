@@ -18,7 +18,7 @@ namespace Technico.Data.Repositories
 
         public async Task<IEnumerable<Property>> GetAllAsync()
         {
-            var data = await _dbContext.Properties.Include(p => p.Owner).ToListAsync();
+            var data = await _dbContext.Properties.Include(p => p.Owner).Where(p => p.IsActive).ToListAsync();
             return data;
         }
 
@@ -47,15 +47,15 @@ namespace Technico.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByPropertyIdAsync(string propertyId)
+        public async Task<bool> ExistsByE9Async(string E9)
         {
-            return await _dbContext.Properties.AnyAsync(p => p.PropertyId == propertyId);
+            return await _dbContext.Properties.AnyAsync(p => p.E9 == E9);
         }
 
-        public async Task<bool> IsPropertyIdUniqueAsync(string propertyId, long excludedId)
+        public async Task<bool> IsE9UniqueAsync(string E9, long excludedId)
         {
             return !await _dbContext.Properties
-                .AnyAsync(p => p.PropertyId == propertyId && p.Id != excludedId);
+                .AnyAsync(p => p.E9 == E9 && p.Id != excludedId);
         }
 
         public async Task<bool> ExistsAsync(long ownerId)
@@ -83,7 +83,7 @@ namespace Technico.Data.Repositories
                 query = query.Where(p =>
                     (matchedType.Key != null && p.Type == (PropertyType)matchedType.Value) ||
                     p.Id.ToString().Contains(searchTerm) ||
-                    p.PropertyId.Contains(searchTerm) ||
+                    p.E9.Contains(searchTerm) ||
                     p.Address.Contains(searchTerm) ||
                     p.YearOfConstruction.ToString().Contains(searchTerm) ||
                     p.Owner.VatNumber.Contains(searchTerm)

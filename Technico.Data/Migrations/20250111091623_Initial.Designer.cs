@@ -12,7 +12,7 @@ using Technico.Data;
 namespace Technico.Data.Migrations
 {
     [DbContext(typeof(TechnicoDbContext))]
-    [Migration("20241225151917_Initial")]
+    [Migration("20250111091623_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -43,15 +43,12 @@ namespace Technico.Data.Migrations
                         .HasMaxLength(254)
                         .HasColumnType("nvarchar(254)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -95,13 +92,16 @@ namespace Technico.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<long>("OwnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PropertyId")
+                    b.Property<string>("E9")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -112,10 +112,10 @@ namespace Technico.Data.Migrations
                     b.HasKey("Id")
                         .HasName("PK_Property_Id");
 
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("PropertyId")
+                    b.HasIndex("E9")
                         .IsUnique();
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Property", (string)null);
                 });

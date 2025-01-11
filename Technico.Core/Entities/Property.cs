@@ -6,13 +6,15 @@ namespace Technico.Core.Entities
     {
         public long Id { get; set; }
 
-        public string PropertyId { get; set; } = null!;
+        public string E9 { get; set; } = null!;
 
         public string Address { get; set; } = null!;
 
         public int YearOfConstruction { get; set; }
 
         public PropertyType Type { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
         public long OwnerId { get; set; }
 

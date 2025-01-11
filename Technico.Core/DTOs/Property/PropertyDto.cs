@@ -1,4 +1,5 @@
 ﻿using Technico.Core.DTOs.Owner;
+using Technico.Core.Enums;
 
 namespace Technico.Core.DTOs.Property
 {
@@ -6,14 +7,14 @@ namespace Technico.Core.DTOs.Property
     {
         public long Id { get; set; }
 
-        public string PropertyId { get; set; } = null!;
+        public string E9 { get; set; } = null!;
 
         public string Address { get; set; } = null!;
 
         public int YearOfConstruction { get; set; }
 
-        public string Type { get; set; } = null!;
+        public PropertyType Type { get; set; }
 
-        public OwnerDto Owner { get; set; } = null!;
+        public string? VatNumber { get; set; }
     }
 }

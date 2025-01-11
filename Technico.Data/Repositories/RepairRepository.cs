@@ -16,7 +16,7 @@ namespace Technico.Data.Repositories
 
         public async Task<IEnumerable<Repair>> GetAllAsync()
         {
-            var data = await _dbContext.Repairs.ToListAsync();
+            var data = await _dbContext.Repairs.Include(r => r.Property).ThenInclude(p => p.Owner).ToListAsync();
             return data;
         }
 
@@ -55,8 +55,8 @@ namespace Technico.Data.Repositories
         {
             var today = DateTime.UtcNow.Date;
             var repairsForToday = await _dbContext.Repairs
-                .Include(r => r.Property)   // Ensure the Property is loaded
-                .ThenInclude(p => p.Owner)  // Ensure the Owner is loaded as well
+                .Include(r => r.Property)
+                .ThenInclude(p => p.Owner)
                 .Where(r => r.Date.Date == today && r.Status == RepairStatus.Pending)
                 .ToListAsync();
 

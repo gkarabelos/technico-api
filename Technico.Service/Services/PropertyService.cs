@@ -32,7 +32,7 @@ namespace Technico.Service.Services
 
         public async Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto dto)
         {
-            if (await _propertyRepository.ExistsByPropertyIdAsync(dto.PropertyId))
+            if (await _propertyRepository.ExistsByE9Async(dto.E9))
                 throw new ValidationException("The Property ID already exists.");
 
             if (!await _propertyRepository.ExistsAsync(dto.OwnerId))
@@ -45,7 +45,7 @@ namespace Technico.Service.Services
 
         public async Task<bool> UpdatePropertyAsync(long id, UpdatePropertyDto dto)
         {
-            if (!await _propertyRepository.IsPropertyIdUniqueAsync(dto.PropertyId, id))
+            if (!await _propertyRepository.IsE9UniqueAsync(dto.E9, id))
                 throw new ValidationException("Property ID already exists.");
 
             if (!await _propertyRepository.ExistsAsync(dto.OwnerId))
@@ -81,6 +81,16 @@ namespace Technico.Service.Services
                 Data = _mapper.Map<IEnumerable<PropertyDto>>(properties),
                 TotalRecords = totalRecords
             };
+        }
+
+        public async Task<bool> DeactivatePropertyAsync(long id)
+        {
+            var property = await _propertyRepository.GetByIdAsync(id);
+            if (property == null) return false;
+
+            property.IsActive = false;
+            await _propertyRepository.UpdateAsync(property);
+            return true;
         }
     }
 }

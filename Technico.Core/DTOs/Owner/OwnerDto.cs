@@ -1,5 +1,7 @@
 ﻿
 
+using Technico.Core.Enums;
+
 namespace Technico.Core.DTOs.Owner
 {
     public class OwnerDto
@@ -18,8 +20,6 @@ namespace Technico.Core.DTOs.Owner
 
         public string Email { get; set; } = null!;
 
-        public string Type { get; set; } = null!;
-
-        public bool IsActive { get; set; } = true;
+        public UserType Type { get; set; }
     }
 }

@@ -23,9 +23,8 @@ namespace Technico.Data.Migrations
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(254)", maxLength: 254, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,10 +37,11 @@ namespace Technico.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PropertyId = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    E9 = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     YearOfConstruction = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     OwnerId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -86,15 +86,15 @@ namespace Technico.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Property_E9",
+                table: "Property",
+                column: "E9",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Property_OwnerId",
                 table: "Property",
                 column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Property_PropertyId",
-                table: "Property",
-                column: "PropertyId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repair_PropertyId",

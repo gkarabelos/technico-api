@@ -7,7 +7,7 @@ namespace Technico.API.Validations.Property
     {
         public UpdatePropertyValidation()
         {
-            RuleFor(p => p.PropertyId)
+            RuleFor(p => p.E9)
                 .NotEmpty().WithMessage("Property ID is required.")
                 .Matches("^[0-9]+$").WithMessage("Property ID must contain only digits.")
                 .MaximumLength(20).WithMessage("Property ID cannot exceed 20 digits.");
