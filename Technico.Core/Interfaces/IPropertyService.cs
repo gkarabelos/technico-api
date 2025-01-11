@@ -10,6 +10,7 @@ namespace Technico.Core.Interfaces
         Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto dto);
         Task<bool> UpdatePropertyAsync(long id, UpdatePropertyDto dto);
         Task<bool> DeletePropertyAsync(long id);
+        Task<bool> DeactivatePropertyAsync(long id);
         Task<PaginatedResult<PropertyDto>> GetPaginatedPropertiesAsync(string? searchTerm, int page, int pageSize);
     }
 }

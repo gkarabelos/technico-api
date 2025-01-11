@@ -33,7 +33,7 @@ namespace Technico.API.Validations.Owner
                 .NotEmpty().WithMessage("Email is required.")
                 .EmailAddress().WithMessage("Invalid email format.");
 
-            RuleFor(o => o.PasswordHash)
+            RuleFor(o => o.Password)
                 .NotEmpty().WithMessage("Password is required.")
                 .MinimumLength(8).WithMessage("Password must be at least 8 characters long.");
 

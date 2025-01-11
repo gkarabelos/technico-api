@@ -1,6 +1,7 @@
 ﻿
 
 using Technico.Core.DTOs.Property;
+using Technico.Core.Enums;
 
 namespace Technico.Core.DTOs.Repair
 {
@@ -14,14 +15,16 @@ namespace Technico.Core.DTOs.Repair
 
         public string? Description { get; set; }
 
-        public string Status { get; set; } = "Pending";
+        public RepairStatus Status { get; set; } = RepairStatus.Pending;
 
         public decimal Cost { get; set; }
 
         public long PropertyId { get; set; }
 
-        public PropertyDto Property { get; set; } = new PropertyDto();
-
         public string? OwnerName { get; set; }
+
+        public string? OwnerSurname { get; set; }
+
+        public string? PropertyAddress { get; set; }
     }
 }

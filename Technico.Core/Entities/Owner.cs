@@ -18,11 +18,9 @@ namespace Technico.Core.Entities
 
         public string Email {  get; set; } = null!;
 
-        public string PasswordHash { get; set; } = null!;
+        public string Password { get; set; } = null!;
 
         public UserType Type { get; set; }
-
-        public bool IsActive { get; set; } = true;
 
         public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
     }

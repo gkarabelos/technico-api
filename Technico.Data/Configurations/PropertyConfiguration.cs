@@ -13,10 +13,10 @@ namespace Technico.Data.Configurations
 
             builder.ToTable("Property");
 
-            builder.HasIndex(e => e.PropertyId)
+            builder.HasIndex(e => e.E9)
                 .IsUnique();
 
-            builder.Property(e => e.PropertyId)
+            builder.Property(e => e.E9)
                 .HasMaxLength(20);
 
             builder.Property(e => e.Address)

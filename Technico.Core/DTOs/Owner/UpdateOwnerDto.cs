@@ -1,5 +1,7 @@
 ﻿
 
+using Technico.Core.Enums;
+
 namespace Technico.Core.DTOs.Owner
 {
     public class UpdateOwnerDto
@@ -15,5 +17,7 @@ namespace Technico.Core.DTOs.Owner
         public string PhoneNumber { get; set; } = null!;
 
         public string Email { get; set; } = null!;
+
+        public UserType Type { get; set; }
     }
 }
