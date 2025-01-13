@@ -32,9 +32,10 @@ namespace Technico.Service.Services
         public async Task<OwnerDto> CreateOwnerAsync(CreateOwnerDto dto)
         {
             if (await _ownerRepository.ExistsByVatNumberAsync(dto.VatNumber) != null)
-            {
                 throw new ValidationException("The VAT number already exists.");
-            }
+
+            if (await _ownerRepository.ExistsByEmailAsync(dto.Email) != null)
+                throw new ValidationException("The Email already exists.");
 
             var entity = _mapper.Map<Owner>(dto);
             var createdEntity = await _ownerRepository.AddAsync(entity);

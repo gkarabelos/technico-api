@@ -26,5 +26,7 @@ namespace Technico.Core.DTOs.Repair
         public string? OwnerSurname { get; set; }
 
         public string? PropertyAddress { get; set; }
+
+        public string? E9 { get; set; }
     }
 }

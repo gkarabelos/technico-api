@@ -20,6 +20,8 @@ namespace Technico.Core.DTOs.Owner
 
         public string Email { get; set; } = null!;
 
+        public string Password { get; set; } = null!;
+
         public UserType Type { get; set; }
     }
 }
