@@ -57,7 +57,7 @@ namespace Technico.Data.Repositories
             var repairsForToday = await _dbContext.Repairs
                 .Include(r => r.Property)
                 .ThenInclude(p => p.Owner)
-                .Where(r => r.Date.Date == today && r.Status == RepairStatus.Pending)
+                .Where(r => r.Date.Date == today && r.Status == RepairStatus.Pending || r.Status == RepairStatus.InProgress)
                 .ToListAsync();
 
             return repairsForToday;

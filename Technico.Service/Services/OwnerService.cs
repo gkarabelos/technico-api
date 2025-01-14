@@ -71,5 +71,12 @@ namespace Technico.Service.Services
             var entity = await _ownerRepository.ExistsByVatNumberAsync(vatNumber);
             return _mapper.Map<OwnerDto>(entity);
         }
+
+        public async Task<bool> ExistsByEmailAsync(string email)
+        {
+            var owner = await _ownerRepository.ExistsByEmailAsync(email);
+            return owner != null;
+        }
+
     }
 }
