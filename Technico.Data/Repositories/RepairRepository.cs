@@ -22,7 +22,7 @@ namespace Technico.Data.Repositories
 
         public async Task<Repair?> GetByIdAsync(long id)
         {
-            var data = await _dbContext.Repairs.FindAsync(id).AsTask();
+            var data = await _dbContext.Repairs.Include(r => r.Property).ThenInclude(p => p.Owner).FirstOrDefaultAsync(r => r.Id == id); ;
             return data;
         }
 
@@ -57,9 +57,8 @@ namespace Technico.Data.Repositories
             var repairsForToday = await _dbContext.Repairs
                 .Include(r => r.Property)
                 .ThenInclude(p => p.Owner)
-                .Where(r => r.Date.Date == today && r.Status == RepairStatus.Pending)
+                .Where(r => r.Date.Date == today && (r.Status == RepairStatus.Pending || r.Status == RepairStatus.InProgress))
                 .ToListAsync();
-
             return repairsForToday;
         }
 

@@ -18,7 +18,7 @@ namespace Technico.Data.Repositories
 
         public async Task<IEnumerable<Property>> GetAllAsync()
         {
-            var data = await _dbContext.Properties.Include(p => p.Owner).Where(p => p.IsActive).ToListAsync();
+            var data = await _dbContext.Properties.Include(p => p.Owner).ToListAsync();
             return data;
         }
 

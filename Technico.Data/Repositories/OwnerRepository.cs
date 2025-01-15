@@ -49,6 +49,11 @@ namespace Technico.Data.Repositories
             return await _dbContext.Owners.FirstOrDefaultAsync(o => o.VatNumber == vatNumber);
         }
 
+        public async Task<Owner?> ExistsByEmailAsync(string email)
+        {
+            return await _dbContext.Owners.FirstOrDefaultAsync(o => o.Email == email);
+        }
+
         public async Task<bool> IsVatNumberUniqueAsync(string vatNumber, long excludedId)
         {
             return !await _dbContext.Owners

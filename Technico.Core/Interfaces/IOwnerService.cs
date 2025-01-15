@@ -10,5 +10,8 @@ namespace Technico.Core.Interfaces
         Task<bool> UpdateOwnerAsync(long id, UpdateOwnerDto dto);
         Task<bool> DeleteOwnerAsync(long id);
         Task<OwnerDto?> FindByVatNumberAsync(string vatNumber);
+        Task<bool> ValidateEmailAsync(string email);
+        Task<bool> ValidatePasswordAsync(string email, string password);
+
     }
 }
