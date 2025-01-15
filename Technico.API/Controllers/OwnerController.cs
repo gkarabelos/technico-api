@@ -88,7 +88,7 @@ namespace Technico.API.Controllers
             return Ok(new { message = "Owner with the provided VAT number does exist.", id = owner.Id });
         }
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> ValidateEmailAndPassword([FromQuery] string email, [FromQuery] string password)
         {
             var emailExists = await _ownerService.ValidateEmailAsync(email);
