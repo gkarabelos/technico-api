@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technico.Core.DTOs.Owner;
 using Technico.Core.Interfaces;
+using Technico.Data.Repositories;
 
 namespace Technico.API.Controllers
 {
@@ -85,6 +86,22 @@ namespace Technico.API.Controllers
                 return NotFound(new { message = "Owner with the provided VAT number does not exist." });
 
             return Ok(new { message = "Owner with the provided VAT number does exist.", id = owner.Id });
+        }
+
+        [HttpGet("login")]
+        public async Task<IActionResult> ValidateEmailAndPassword([FromQuery] string email, [FromQuery] string password)
+        {
+            var emailExists = await _ownerService.ValidateEmailAsync(email);
+            if (!emailExists)
+            {
+                return Ok(new { isValid = false, message = "Email does not exist." });
+            }
+            var isPasswordCorrect = await _ownerService.ValidatePasswordAsync(email, password);
+            if (!isPasswordCorrect)
+            {
+                return Ok(new { isValid = false, message = "Wrong password." });
+            }
+            return Ok(new { isValid = true, message = "Validation successful." });
         }
 
         [HttpGet("filter")]

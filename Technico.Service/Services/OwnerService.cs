@@ -83,5 +83,24 @@ namespace Technico.Service.Services
             var owners = await _ownerRepository.GetFilteredOwnersAsync(vatNumber, email);
             return _mapper.Map<IEnumerable<OwnerDto>>(owners);
         }
+
+        public async Task<bool> ValidateEmailAsync(string email)
+        {
+            var owner = await _ownerRepository.ExistsByEmailAsync(email);
+            return owner != null; // returns true if the email exists, false otherwise
+        }
+
+        public async Task<bool> ValidatePasswordAsync(string email, string password)
+        {
+            var owner = await _ownerRepository.ExistsByEmailAsync(email);
+            if (owner == null) return false;
+            return owner.Password == password;
+        }
+
+
+
     }
+
+
+
 }

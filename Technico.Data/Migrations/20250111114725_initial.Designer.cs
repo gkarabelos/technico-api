@@ -12,8 +12,8 @@ using Technico.Data;
 namespace Technico.Data.Migrations
 {
     [DbContext(typeof(TechnicoDbContext))]
-    [Migration("20250111091623_Initial")]
-    partial class Initial
+    [Migration("20250111114725_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
