@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Technico.Core.DTOs.Repair;
 using Technico.Core.Entities;

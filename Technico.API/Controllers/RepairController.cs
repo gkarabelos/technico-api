@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technico.Core.DTOs.Repair;
 using Technico.Core.Interfaces;
+using Technico.Service.Services;
 
 namespace Technico.API.Controllers
 {

@@ -12,5 +12,6 @@ namespace Technico.Core.Interfaces
         Task<bool> DeletePropertyAsync(long id);
         Task<bool> DeactivatePropertyAsync(long id);
         Task<PaginatedResult<PropertyDto>> GetPaginatedPropertiesAsync(string? searchTerm, int page, int pageSize);
+        Task<PropertyDto>GetPropertyByE9Async(string E9); 
     }
 }

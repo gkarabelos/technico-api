@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using Technico.Core.DTOs.Owner;
 using Technico.Core.DTOs.Pagination;
 using Technico.Core.DTOs.Property;
 using Technico.Core.Entities;
@@ -91,6 +92,12 @@ namespace Technico.Service.Services
             property.IsActive = false;
             await _propertyRepository.UpdateAsync(property);
             return true;
+        }
+
+        public async Task<PropertyDto> GetPropertyByE9Async(string E9)
+        {
+            var property = await _propertyRepository.GetPropertyIdByE9Async(E9);
+            return _mapper.Map<PropertyDto>(property);
         }
     }
 }

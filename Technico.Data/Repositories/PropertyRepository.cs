@@ -22,6 +22,12 @@ namespace Technico.Data.Repositories
             return data;
         }
 
+        public async Task<Property?> GetPropertyIdByE9Async(string E9)
+        {
+            return await _dbContext.Properties
+                .FirstOrDefaultAsync(p => p.E9 == E9);
+        }
+
         public async Task<Property?> GetByIdAsync(long id)
         {
             var data = await _dbContext.Properties.Include(p => p.Owner).FirstOrDefaultAsync(p => p.Id == id);

@@ -6,5 +6,6 @@ namespace Technico.Core.Interfaces
     {
         Task<bool> ExistsAsync(long propertyId);
         Task<IEnumerable<Repair>> GetRepairsForTodayAsync();
+       
     }
 }
