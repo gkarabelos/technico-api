@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technico.Core.DTOs.Property;
 using Technico.Core.Interfaces;
+using Technico.Service.Services;
 
 namespace Technico.API.Controllers
 {
@@ -30,6 +31,18 @@ namespace Technico.API.Controllers
             if (property == null)
                 return NotFound();
             return Ok(property);
+        }
+        [HttpGet("get-property-id/{E9}")]  
+        public async Task<IActionResult> GetPropertyIdByE9(string E9)
+        {
+            var property = await _propertyService.GetPropertyByE9Async(E9);
+
+            if (property == null)
+            {
+                return NotFound(new { Message = "Property not found." });
+            }
+
+            return Ok(new {Message = "Property does exist", id = property.Id });
         }
 
         [HttpPost]
