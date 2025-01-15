@@ -10,5 +10,7 @@ namespace Technico.Core.Interfaces
         Task<bool> ExistsAsync(long ownerId);
         Task<IEnumerable<Property>> GetPaginatedPropertiesAsync(string? searchTerm, int skip, int take);
         Task<int> GetTotalPropertyCountAsync();
+        Task<Property?> GetPropertyIdByE9Async(string E9);
     }
 }
+ 
