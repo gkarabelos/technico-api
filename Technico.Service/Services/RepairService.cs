@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using Technico.Core.DTOs.Pagination;
+using Technico.Core.DTOs.Property;
 using Technico.Core.DTOs.Repair;
 using Technico.Core.Entities;
 using Technico.Core.Interfaces;
+using Technico.Data.Repositories;
 
 namespace Technico.Service.Services
 {
@@ -19,14 +22,14 @@ namespace Technico.Service.Services
 
         public async Task<RepairDto?> GetByIdAsync(long id)
         {
-            var entity = await _repairRepository.GetByIdAsync(id);
-            return _mapper.Map<RepairDto>(entity);
+            var repair = await _repairRepository.GetByIdAsync(id);
+            return _mapper.Map<RepairDto>(repair);
         }
 
         public async Task<IEnumerable<RepairDto>> GetRepairsAsync()
         {
-            var entities = await _repairRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<RepairDto>>(entities);
+            var repairs = await _repairRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<RepairDto>>(repairs);
         }
 
         public async Task<RepairDto> CreateRepairAsync(CreateRepairDto dto)
@@ -34,9 +37,9 @@ namespace Technico.Service.Services
             if (!await _repairRepository.ExistsAsync(dto.PropertyId))
                 throw new ValidationException("The Property doesn't exists.");
 
-            var entity = _mapper.Map<Repair>(dto);
-            var createdEntity = await _repairRepository.AddAsync(entity);
-            return _mapper.Map<RepairDto>(createdEntity);
+            var repair = _mapper.Map<Repair>(dto);
+            var createdRepair = await _repairRepository.AddAsync(repair);
+            return _mapper.Map<RepairDto>(createdRepair);
         }
 
         public async Task<bool> UpdateRepairAsync(long id, UpdateRepairDto dto)
@@ -44,20 +47,20 @@ namespace Technico.Service.Services
             if (!await _repairRepository.ExistsAsync(dto.PropertyId))
                 throw new ValidationException("The Property doesn't exists.");
 
-            var entity = await _repairRepository.GetByIdAsync(id);
-            if (entity == null) return false;
+            var repair = await _repairRepository.GetByIdAsync(id);
+            if (repair == null) return false;
 
-            _mapper.Map(dto, entity);
-            await _repairRepository.UpdateAsync(entity);
+            _mapper.Map(dto, repair);
+            await _repairRepository.UpdateAsync(repair);
             return true;
         }
 
         public async Task<bool> DeleteRepairAsync(long id)
         {
-            var entity = await _repairRepository.GetByIdAsync(id);
-            if (entity == null) return false;
+            var repair = await _repairRepository.GetByIdAsync(id);
+            if (repair == null) return false;
 
-            await _repairRepository.DeleteAsync(entity);
+            await _repairRepository.DeleteAsync(repair);
             return true;
         }
 
@@ -65,6 +68,21 @@ namespace Technico.Service.Services
         {
             var repairs = await _repairRepository.GetRepairsForTodayAsync();
             return _mapper.Map<IEnumerable<RepairDto>>(repairs);
+        }
+
+        public async Task<PaginatedResult<RepairDto>> GetPaginatedRepairsAsync(string? searchTerm, int page, int pageSize)
+        {
+            int skip = (page - 1) * pageSize;
+
+            var properties = await _repairRepository.GetPaginatedRepairsAsync(searchTerm, skip, pageSize);
+
+            var totalRecords = await _repairRepository.GetTotalRepairCountAsync();
+
+            return new PaginatedResult<RepairDto>
+            {
+                Data = _mapper.Map<IEnumerable<RepairDto>>(properties),
+                TotalRecords = totalRecords
+            };
         }
     }
 }

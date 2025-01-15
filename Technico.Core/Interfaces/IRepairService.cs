@@ -1,4 +1,5 @@
 ﻿using Technico.Core.DTOs.Pagination;
+using Technico.Core.DTOs.Property;
 using Technico.Core.DTOs.Repair;
 
 namespace Technico.Core.Interfaces
@@ -11,5 +12,6 @@ namespace Technico.Core.Interfaces
         Task<bool> UpdateRepairAsync(long id, UpdateRepairDto dto);
         Task<bool> DeleteRepairAsync(long id);
         Task<IEnumerable<RepairDto>> GetRepairsForTodayAsync();
+        Task<PaginatedResult<RepairDto>> GetPaginatedRepairsAsync(string? searchTerm, int page, int pageSize);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Technico.Core.DTOs.Owner;
+using Technico.Core.Entities;
 
 namespace Technico.Core.Interfaces
 {
@@ -10,5 +11,6 @@ namespace Technico.Core.Interfaces
         Task<bool> UpdateOwnerAsync(long id, UpdateOwnerDto dto);
         Task<bool> DeleteOwnerAsync(long id);
         Task<OwnerDto?> FindByVatNumberAsync(string vatNumber);
+        Task<IEnumerable<OwnerDto>> GetFilteredOwnersAsync(string? vatNumber, string? email);
     }
 }

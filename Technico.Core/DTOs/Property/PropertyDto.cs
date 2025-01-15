@@ -15,6 +15,8 @@ namespace Technico.Core.DTOs.Property
 
         public PropertyType Type { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string? VatNumber { get; set; }
     }
 }

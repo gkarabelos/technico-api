@@ -1,7 +1,4 @@
-﻿
-
-using Technico.Core.DTOs.Property;
-using Technico.Core.Enums;
+﻿using Technico.Core.Enums;
 
 namespace Technico.Core.DTOs.Repair
 {

@@ -63,5 +63,41 @@ namespace Technico.Data.Repositories
             return repairsForToday;
         }
 
+        public async Task<IEnumerable<Repair>> GetPaginatedRepairsAsync(string? searchTerm, int skip, int take)
+        {
+            var repairStatusValues = new Dictionary<string, int>
+            {
+                { "Pending", 0 },
+                { "In Progress", 1 },
+                { "Complete", 2 }
+            };
+
+            var query = _dbContext.Repairs.Include(p => p.Property).ThenInclude(o => o.Owner).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var matchedType = repairStatusValues
+                    .FirstOrDefault(kv => kv.Key.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+                query = query.Where(r =>
+                    (matchedType.Key != null && r.Status == (RepairStatus)matchedType.Value) ||
+                    r.Id.ToString().Contains(searchTerm) ||
+                    r.Date.ToString().Contains(searchTerm) ||
+                    r.Type.Contains(searchTerm) ||
+                    r.Property.Address.Contains(searchTerm) ||
+                    r.Cost.ToString().Contains(searchTerm) ||
+                    r.Property.Owner.Name.Contains(searchTerm) ||
+                    r.Property.Owner.Surname.Contains(searchTerm)
+                );
+            }
+
+            var data = await query.Skip(skip).Take(take).ToListAsync();
+            return data;
+        }
+
+        public async Task<int> GetTotalRepairCountAsync()
+        {
+            return await _dbContext.Repairs.CountAsync();
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace Technico.Core.Interfaces
         Task<Owner?> ExistsByVatNumberAsync(string vatNumber);
         Task<bool> IsVatNumberUniqueAsync(string vatNumber, long excludedId);
         Task<Owner?> ExistsByEmailAsync(string email);
+        Task<IEnumerable<Owner>> GetFilteredOwnersAsync(string? vatNumber, string? email);
     }
 }

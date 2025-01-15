@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technico.Core.DTOs.Repair;
 using Technico.Core.Interfaces;
+using Technico.Service.Services;
 
 namespace Technico.API.Controllers
 {
@@ -89,6 +90,13 @@ namespace Technico.API.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetPaginatedRepairs([FromQuery] string? searchTerm = null, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _repairService.GetPaginatedRepairsAsync(searchTerm, page, pageSize);
+            return Ok(result);
         }
     }
 }

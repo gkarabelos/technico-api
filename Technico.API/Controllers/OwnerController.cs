@@ -86,5 +86,12 @@ namespace Technico.API.Controllers
 
             return Ok(new { message = "Owner with the provided VAT number does exist.", id = owner.Id });
         }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetFilteredOwners([FromQuery] string? vatNumber, [FromQuery] string? email)
+        {
+            var owners = await _ownerService.GetFilteredOwnersAsync(vatNumber, email);
+            return Ok(owners);
+        }
     }
 }

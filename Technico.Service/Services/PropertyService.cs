@@ -20,14 +20,14 @@ namespace Technico.Service.Services
 
         public async Task<PropertyDto?> GetByIdAsync(long id)
         {
-            var entity = await _propertyRepository.GetByIdAsync(id);
-            return _mapper.Map<PropertyDto>(entity);
+            var property = await _propertyRepository.GetByIdAsync(id);
+            return _mapper.Map<PropertyDto>(property);
         }
 
         public async Task<IEnumerable<PropertyDto>> GetPropertiesAsync()
         {
-            var entities = await _propertyRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<PropertyDto>>(entities);
+            var properties = await _propertyRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<PropertyDto>>(properties);
         }
 
         public async Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto dto)
@@ -38,9 +38,9 @@ namespace Technico.Service.Services
             if (!await _propertyRepository.ExistsAsync(dto.OwnerId))
                 throw new ValidationException("The Owner doesn't exists.");
 
-            var entity = _mapper.Map<Property>(dto);
-            var createdEntity = await _propertyRepository.AddAsync(entity);
-            return _mapper.Map<PropertyDto>(createdEntity);
+            var property = _mapper.Map<Property>(dto);
+            var createdProperty = await _propertyRepository.AddAsync(property);
+            return _mapper.Map<PropertyDto>(createdProperty);
         }
 
         public async Task<bool> UpdatePropertyAsync(long id, UpdatePropertyDto dto)
@@ -51,20 +51,20 @@ namespace Technico.Service.Services
             if (!await _propertyRepository.ExistsAsync(dto.OwnerId))
                 throw new ValidationException("The Owner doesn't exists.");
 
-            var entity = await _propertyRepository.GetByIdAsync(id);
-            if (entity == null) return false;
+            var property = await _propertyRepository.GetByIdAsync(id);
+            if (property == null) return false;
 
-            _mapper.Map(dto, entity);
-            await _propertyRepository.UpdateAsync(entity);
+            _mapper.Map(dto, property);
+            await _propertyRepository.UpdateAsync(property);
             return true;
         }
 
         public async Task<bool> DeletePropertyAsync(long id)
         {
-            var entity = await _propertyRepository.GetByIdAsync(id);
-            if (entity == null) return false;
+            var property = await _propertyRepository.GetByIdAsync(id);
+            if (property == null) return false;
 
-            await _propertyRepository.DeleteAsync(entity);
+            await _propertyRepository.DeleteAsync(property);
             return true;
         }
 

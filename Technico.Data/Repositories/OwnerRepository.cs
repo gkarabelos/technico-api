@@ -59,5 +59,22 @@ namespace Technico.Data.Repositories
             return !await _dbContext.Owners
                 .AnyAsync(o => o.VatNumber == vatNumber && o.Id != excludedId);
         }
+
+        public async Task<IEnumerable<Owner>> GetFilteredOwnersAsync(string? vatNumber, string? email)
+        {
+            var query = _dbContext.Owners.AsQueryable();
+
+            if (!string.IsNullOrEmpty(vatNumber))
+            {
+                query = query.Where(o => o.VatNumber.Contains(vatNumber));
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                query = query.Where(o => o.Email.Contains(email));
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }
